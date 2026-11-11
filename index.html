@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Password Generator Online: Free Random & Secure Tool</title>
+<meta name="description" content="Free online password generator: create strong random passwords with your own length and symbols. Runs in your browser, nothing stored or sent.">
+<link rel="canonical" href="https://passwordgenerator.globrik.com/">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2563eb">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Password Generator Online: Free Random & Secure Tool">
+<meta property="og:description" content="Free online random password generator. Pick your length and characters, generate, copy. Runs in your browser.">
+<meta property="og:url" content="https://passwordgenerator.globrik.com/">
+<meta property="og:site_name" content="Globrik">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Password Generator Online: Free Random & Secure Tool">
+<meta name="twitter:description" content="Free online random password generator. Pick your length and characters, generate, copy. Runs in your browser.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Crect x='18' y='28' width='28' height='22' rx='4' fill='white'/%3E%3Cpath d='M23 28v-6a9 9 0 0 1 18 0v6' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebApplication","name":"Password Generator","description":"Free online random password generator. Choose a length and character types, then generate strong passwords in your browser with the Web Crypto API.","url":"https://passwordgenerator.globrik.com/","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://globrik.com/"},{"@type":"ListItem","position":2,"name":"Password Generator","item":"https://passwordgenerator.globrik.com/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is this password generator free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It's completely free, with no account, no trial and no limit on how many passwords you generate. There are no ads inside the tool and nothing to install. Open the page, choose your options, click Generate password and copy the result."}},
+{"@type":"Question","name":"Are the passwords really random?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each character is chosen with crypto.getRandomValues, the browser's cryptographically secure random source, not Math.random. The code also discards out-of-range values to avoid modulo bias. That makes the output suitable for real accounts, though randomness quality still depends on your browser and device."}},
+{"@type":"Question","name":"Does this site see or store my passwords?","acceptedAnswer":{"@type":"Answer","text":"No. Passwords are generated on your device and shown only in the box on this page. The page doesn't send them anywhere or save them in cookies or local storage. Closing or refreshing the tab clears them. Your clipboard or browser may keep copies, so clear them on shared computers."}},
+{"@type":"Question","name":"How long should my password be?","acceptedAnswer":{"@type":"Answer","text":"For most accounts, 16 characters with letters, numbers and symbols is a solid default. Use 20 or more for important accounts such as email, banking and your password manager's master password. Longer is stronger, and length matters more than clever symbols. Also check each site's maximum length."}},
+{"@type":"Question","name":"Do I need to include symbols?","acceptedAnswer":{"@type":"Answer","text":"Not always. Symbols widen the pool and add strength per character, but extra length does the same job. If a site rejects certain symbols, turn symbols off and raise the length to 20 or more. Letters and numbers alone are fine when the password is long enough."}},
+{"@type":"Question","name":"What does exclude ambiguous characters do?","acceptedAnswer":{"@type":"Answer","text":"It removes characters that look alike: capital I, lowercase l, the digit 1, capital O and the digit 0. That helps if you'll type the password from a screen or paper. It shrinks the pool slightly, so add a character or two of length to make up for it."}},
+{"@type":"Question","name":"Is this a replacement for LastPass or another password manager?","acceptedAnswer":{"@type":"Answer","text":"No. This tool only generates passwords. It doesn't save, sync or autofill them. Password managers such as LastPass can generate and store passwords for you. A good routine is to create a password here or in your manager, then keep it in a manager instead of reusing it."}},
+{"@type":"Question","name":"Can I use the same generated password on several sites?","acceptedAnswer":{"@type":"Answer","text":"You shouldn't. If one site is breached, anyone holding that password can try it on your other accounts. Generate a fresh password for each account and keep them in a password manager. This tool makes that easy: click Generate password again whenever you need another one."}},
+{"@type":"Question","name":"Does it work on my phone and offline?","acceptedAnswer":{"@type":"Answer","text":"Yes to both, with one note. The layout is built for phones, with 44-pixel tap targets, and the generator needs no internet connection once the page has loaded. You do need to be online to open it the first time. The tool does not install itself as an offline app."}},
+{"@type":"Question","name":"How strong is my password?","acceptedAnswer":{"@type":"Answer","text":"The strength bar shows an estimate in bits of entropy, calculated from the password length and the size of the character set you chose. Eighty bits or more is rated very strong. It estimates randomness only. It can't know whether a website stores passwords safely."}}
+]}]}
+</script>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--tx:#0f172a;--mu:#475569;--br:#cbd5e1;--ac:#1d4ed8;--act:#fff;--soft:#eff6ff;--ok:#166534;--er:#b91c1c;--s0:#b91c1c;--s1:#b45309;--s2:#15803d;--s3:#0f766e}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1220;--card:#111a2e;--tx:#e8eefc;--mu:#a5b4cf;--br:#2b3a57;--ac:#60a5fa;--act:#0b1220;--soft:#16233d;--ok:#86efac;--er:#fca5a5;--s0:#f87171;--s1:#fbbf24;--s2:#4ade80;--s3:#2dd4bf}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--ac)}
+a:focus-visible,button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.w{max-width:920px;margin:0 auto;padding:0 16px}
+header{background:var(--card);border-bottom:1px solid var(--br)}
+header .w{display:flex;flex-wrap:wrap;align-items:center;gap:4px 22px;padding:8px 16px}
+.logo{font-weight:800;font-size:1.35rem;color:var(--tx);text-decoration:none;padding:8px 0}
+nav ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:0 16px}
+nav a{display:inline-block;padding:10px 0;font-size:.95rem}
+h1{font-size:clamp(1.8rem,5vw,2.5rem);line-height:1.2;margin:28px 0 8px}
+h2{font-size:1.55rem;margin:44px 0 10px;line-height:1.3}
+h3{font-size:1.15rem;margin:24px 0 6px}
+p{margin:0 0 14px}
+.lead{color:var(--mu);font-size:1.1rem;margin:0 0 18px}
+.tool{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:16px}
+label.lb{display:block;font-weight:600;margin-bottom:6px}
+textarea{width:100%;min-height:84px;resize:vertical;padding:12px;border:2px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx);font:1.1rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-all}
+.meter{height:10px;border-radius:6px;background:var(--br);overflow:hidden;margin:12px 0 6px}
+.meter span{display:block;height:100%;width:0;background:var(--s0);transition:width .2s}
+#strength{margin:0;font-weight:600;min-height:1.6em}
+.hint{color:var(--mu);font-size:.9rem;margin:6px 0 0}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:16px 0 0}
+fieldset{border:0;padding:0;margin:16px 0 0}
+legend{font-weight:600;padding:0;margin-bottom:6px}
+.lenrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.lenrow input[type=range]{flex:1 1 220px;min-height:44px}
+input[type=number],select{min-height:44px;padding:8px 10px;border:2px solid var(--br);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+input[type=number]{width:96px}
+.chk{display:flex;align-items:center;gap:8px;min-height:44px;padding:6px 10px;border:1px solid var(--br);border-radius:10px;background:var(--card);cursor:pointer;font-size:.92rem}
+.chk input{width:22px;height:22px;flex:none}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{min-height:44px;min-width:44px;padding:8px 14px;border:1px solid var(--br);border-radius:10px;background:var(--card);color:var(--tx);font:inherit;font-size:.95rem;cursor:pointer}
+button:hover{border-color:var(--ac)}
+button:disabled{opacity:.5;cursor:not-allowed}
+button.pri{background:var(--ac);color:var(--act);border-color:var(--ac);font-weight:600}
+#status{min-height:1.6em;margin:8px 0 0;font-weight:600}
+#status.ok{color:var(--ok)}#status.err{color:var(--er)}
+.box{background:var(--soft);border:1px solid var(--br);border-left:5px solid var(--ac);border-radius:10px;padding:16px;margin:26px 0}
+.box h2{margin:0 0 8px;font-size:1.25rem}
+.box ol{margin:8px 0 0;padding-left:22px}
+.toc{background:var(--card);border:1px solid var(--br);border-radius:10px;padding:12px 16px;margin:22px 0}
+.toc strong{display:block;margin-bottom:4px}
+.toc ol{margin:0;padding-left:20px;columns:2;column-gap:28px}
+.toc a{display:inline-block;padding:4px 0}
+@media(max-width:600px){.toc ol{columns:1}}
+ul,ol{padding-left:22px}li{margin-bottom:6px}
+.tw{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;min-width:480px;background:var(--card);font-size:.96rem}
+th,td{border:1px solid var(--br);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+details{background:var(--card);border:1px solid var(--br);border-radius:10px;margin:10px 0;padding:0 14px}
+summary{cursor:pointer;font-weight:600;padding:13px 0;min-height:44px}
+details p{margin:0 0 14px}
+dl{margin:0}dt{font-weight:700;margin-top:12px}dd{margin:2px 0 0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em}
+.rel{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;padding:0;list-style:none}
+.rel li{margin:0}
+.rel a{display:block;padding:12px 14px;border:1px solid var(--br);border-radius:10px;background:var(--card);text-decoration:none;font-weight:600}
+.rel span{display:block;font-weight:400;color:var(--mu);font-size:.9rem}
+footer{margin-top:50px;background:var(--card);border-top:1px solid var(--br);padding:22px 0 30px;font-size:.93rem;color:var(--mu)}
+footer ul{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:0 18px}
+footer a{display:inline-block;padding:10px 0}
+.vh{position:absolute;left:-9999px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+<div class="w">
+<a class="logo" href="https://globrik.com/">Globrik</a>
+<nav aria-label="Globrik tools">
+<ul>
+<li><a href="https://hashgenerator.globrik.com/">Hash Generator</a></li>
+<li><a href="https://qrcodegenerator.globrik.com/">QR Code Generator</a></li>
+<li><a href="https://caseconverter.globrik.com/">Case Converter</a></li>
+<li><a href="https://wordcounter.globrik.com/">Word &amp; Character Counter</a></li>
+<li><a href="https://jsonformatter.globrik.com/">JSON Formatter</a></li>
+<li><a href="https://diffchecker.globrik.com/">Text Diff Checker</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main class="w">
+<article>
+<h1>Password Generator</h1>
+<p class="lead">Generate password options you control: a free, random password generator that runs in your browser and never stores what it creates.</p>
+
+<section class="tool" aria-label="Password generator tool">
+<label class="lb" for="out">Your password</label>
+<textarea id="out" readonly rows="2" spellcheck="false" aria-describedby="hint" placeholder="Your new password appears here"></textarea>
+<div class="row">
+<button type="button" id="gen" class="pri">Generate password</button>
+<button type="button" id="copy">Copy</button>
+<button type="button" id="dl">Download .txt</button>
+<button type="button" id="reset">Reset / Start over</button>
+</div>
+<div id="status" role="status" aria-live="polite"></div>
+<div class="meter" aria-hidden="true"><span id="bar"></span></div>
+<p id="strength">Strength: not generated yet</p>
+<p class="hint" id="hint">Passwords are created in your browser and are never uploaded. Saved files and copied text are not encrypted, so store them in a password manager.</p>
+
+<div class="lenrow" style="margin-top:16px">
+<label for="lenN"><strong>Length</strong> (4 to 128)</label>
+<input type="number" id="lenN" min="4" max="128" value="16" inputmode="numeric">
+<input type="range" id="len" min="4" max="128" value="16" aria-label="Password length slider">
+<label for="count"><strong>How many?</strong></label>
+<select id="count">
+<option value="1" selected>1</option>
+<option value="5">5</option>
+<option value="10">10</option>
+<option value="20">20</option>
+</select>
+</div>
+
+<fieldset>
+<legend>Characters to include</legend>
+<div class="opts">
+<label class="chk"><input type="checkbox" id="o-lower" checked> Lowercase (a-z)</label>
+<label class="chk"><input type="checkbox" id="o-upper" checked> Uppercase (A-Z)</label>
+<label class="chk"><input type="checkbox" id="o-num" checked> Numbers (0-9)</label>
+<label class="chk"><input type="checkbox" id="o-sym" checked> Symbols (!@#)</label>
+<label class="chk"><input type="checkbox" id="amb"> Easy to read</label>
+</div>
+<p class="hint">Easy to read leaves out look-alike characters (I, l, 1, O, 0), so the password is simple to type from a screen.</p>
+</fieldset>
+
+
+</section>
+
+<nav class="toc" aria-label="On this page">
+<strong>On this page</strong>
+<ol>
+<li><a href="#quick">Quick answer</a></li>
+<li><a href="#why">Why use this password generator</a></li>
+<li><a href="#guide">How to generate a password</a></li>
+<li><a href="#specs">Settings and limits</a></li>
+<li><a href="#uses">Use cases</a></li>
+<li><a href="#features">Key features</a></li>
+<li><a href="#tips">Expert tips and common mistakes</a></li>
+<li><a href="#privacy">Privacy and security</a></li>
+<li><a href="#compare">Compared with alternatives</a></li>
+<li><a href="#trouble">Troubleshooting</a></li>
+<li><a href="#glossary">Glossary</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ol>
+</nav>
+
+<section class="box" id="quick" aria-labelledby="quick-h">
+<h2 id="quick-h">Quick answer: how to generate a password</h2>
+<p>To generate a password, choose a length (16 or more is a good default), pick which characters to include, and click Generate password. The tool builds a random password in your browser using your device's secure random number generator. Copy it, paste it into the password field, and keep it in a password manager.</p>
+<ol>
+<li>Set the length with the slider or the number box.</li>
+<li>Tick the character types you want.</li>
+<li>Click Generate password and check the strength bar.</li>
+<li>Click Copy, then save the password in a password manager.</li>
+</ol>
+</section>
+
+<section aria-labelledby="intro-h">
+<h2 id="intro-h" class="vh">Introduction</h2>
+<p>This password generator creates strong, unpredictable passwords in one click. It's a random password generator that lets you set the length, choose letters, numbers and symbols, and skip look-alike characters like O and 0. Pick your settings and the tool fills the box with a fresh password straight away.</p>
+<p>Weak, reused passwords are still the easiest way into most accounts, and people are bad at inventing random ones. Let the computer do it. Nothing is sent to a server, nothing is saved, and there's no account to create.</p>
+</section>
+
+<section id="why" aria-labelledby="why-h">
+<h2 id="why-h">Why use this free random password generator</h2>
+<p>Here's what's actually true about this tool:</p>
+<ul>
+<li><strong>Secure randomness.</strong> Characters are picked with <code>crypto.getRandomValues</code>, the browser's cryptographic random source, not <code>Math.random</code>.</li>
+<li><strong>No modulo bias.</strong> The code throws away out-of-range random values, so every character in your chosen set is equally likely.</li>
+<li><strong>Your rules, your length.</strong> Any length from 4 to 128, four character types and an option to skip look-alike characters.</li>
+<li><strong>Batch mode.</strong> Generate 1, 5, 10 or 20 passwords at once, useful when you're setting up several accounts.</li>
+<li><strong>Strength estimate.</strong> A live bar shows an entropy estimate in bits, based on your length and character set.</li>
+<li><strong>Private by design.</strong> The page makes no network requests while you generate, and it doesn't store passwords in cookies or local storage.</li>
+<li><strong>No signup, no ads inside the tool.</strong> It works the moment the page loads.</li>
+</ul>
+</section>
+
+<section id="guide" aria-labelledby="guide-h">
+<h2 id="guide-h">How to generate a password: step-by-step guide</h2>
+<h3>Step 1: Choose a length</h3>
+<p>Drag the slider or type a number. Length does most of the work: each added character multiplies the number of possible passwords. Sixteen is a sensible everyday default. Go to 20 or more for email, banking and your password manager's master password.</p>
+<h3>Step 2: Choose characters</h3>
+<p>Leave all four types ticked unless a site forbids something. If a site rejects symbols, untick Symbols and add a few characters of length. Tick Easy to read if you'll ever read the password aloud or type it from a screen. If a site demands lowercase-only text, untick the other types here rather than converting the result with a <a href="https://caseconverter.globrik.com/">case converter</a>, which would weaken it.</p>
+<h3>Step 3: Generate and check strength</h3>
+<p>Click Generate password for a new result. The bar below the box rates it Weak, Fair, Strong or Very strong. The rating comes from entropy, a measure of how many guesses an attacker would need on average. Aim for Strong or better, and Very strong for important accounts.</p>
+<h3>Step 4: Copy it and store it safely</h3>
+<p>Click Copy and paste the password straight into the sign-up or change-password form. Then save it in a password manager. Don't keep it in a note, a spreadsheet or an email to yourself.</p>
+<h3>Which settings should you pick?</h3>
+<div class="tw"><table>
+<thead><tr><th>Where you'll use it</th><th>Suggested length</th><th>Character types</th></tr></thead>
+<tbody>
+<tr><td>Email, banking, master password</td><td>20 or more</td><td>All four</td></tr>
+<tr><td>Everyday accounts (shopping, social)</td><td>16</td><td>All four</td></tr>
+<tr><td>Site that rejects symbols</td><td>20 or more</td><td>Letters and numbers only</td></tr>
+<tr><td>Wi-Fi password you'll type on devices</td><td>20 or more</td><td>Letters and numbers, look-alikes excluded</td></tr>
+<tr><td>Temporary password you'll hand to someone</td><td>14 to 16</td><td>All four, look-alikes excluded</td></tr>
+</tbody></table></div>
+<p>For background on why length beats complexity rules, see NIST's <a href="https://pages.nist.gov/800-63-3/sp800-63b.html" rel="noopener">digital identity guidelines (SP 800-63B)</a>.</p>
+</section>
+
+<section id="specs" aria-labelledby="specs-h">
+<h2 id="specs-h">Settings, character sets and limits</h2>
+<div class="tw"><table>
+<thead><tr><th>Item</th><th>What this tool does</th></tr></thead>
+<tbody>
+<tr><td>Length</td><td>4 to 128 characters. Default is 16.</td></tr>
+<tr><td>Lowercase</td><td>a to z (26 characters)</td></tr>
+<tr><td>Uppercase</td><td>A to Z (26 characters)</td></tr>
+<tr><td>Numbers</td><td>0 to 9 (10 characters)</td></tr>
+<tr><td>Symbols</td><td><code>! @ # $ % ^ &amp; * ( ) - _ = + [ ] { } : ; , . ?</code> (23 characters)</td></tr>
+<tr><td>Easy to read</td><td>Removes I, l, 1, O and 0 from the character sets.</td></tr>
+<tr><td>Guarantee</td><td>Every selected character type appears at least once, then the order is shuffled.</td></tr>
+<tr><td>Batch size</td><td>1, 5, 10 or 20 passwords per click.</td></tr>
+<tr><td>Random source</td><td>Web Crypto API (<code>crypto.getRandomValues</code>) with rejection sampling.</td></tr>
+<tr><td>Strength estimate</td><td>Length &times; log2(size of the character pool). Under 40 bits: Weak. 40 to 59: Fair. 60 to 79: Strong. 80 or more: Very strong.</td></tr>
+<tr><td>Output</td><td>Copy to clipboard, or download as a .txt file.</td></tr>
+<tr><td>Not included</td><td>Passphrases (word lists), accented or non-English characters, saving, syncing and autofill.</td></tr>
+</tbody></table></div>
+<p>The strength figure assumes every character is picked independently. Guaranteeing one character from each selected type lowers the true value by a very small amount, so treat the number as a close estimate. With all four types on and a length of 16, the estimate is about 102 bits.</p>
+</section>
+
+<section id="uses" aria-labelledby="uses-h">
+<h2 id="uses-h">Who uses a password generator: practical use cases</h2>
+<ul>
+<li><strong>Anyone opening a new account:</strong> create a unique password instead of recycling an old one.</li>
+<li><strong>People reacting to a breach notice:</strong> replace the exposed password with a fresh random one.</li>
+<li><strong>Home users setting up a router:</strong> generate a long Wi-Fi password without look-alike characters, so it's easy to type on a TV or console.</li>
+<li><strong>Families sharing streaming or utility accounts:</strong> make one strong password and give it only to the people who need it.</li>
+<li><strong>Small business owners and IT admins:</strong> produce temporary passwords for new staff in batches of 5, 10 or 20.</li>
+<li><strong>Developers and testers:</strong> create passwords for staging databases, test users and local services.</li>
+<li><strong>Students and freelancers:</strong> secure school portals, client dashboards and cloud storage without reusing a favorite phrase.</li>
+</ul>
+</section>
+
+<section id="features" aria-labelledby="features-h">
+<h2 id="features-h">Key features and benefits</h2>
+<ul>
+<li>Cryptographically secure randomness from the Web Crypto API.</li>
+<li>Length from 4 to 128 with a slider and a number box.</li>
+<li>Four character types plus a look-alike filter.</li>
+<li>Batch generation of up to 20 passwords.</li>
+<li>Live entropy-based strength bar with a text label.</li>
+<li>Copy and download buttons, plus Reset / Start over.</li>
+<li>Keyboard accessible, labeled controls, large tap targets and a screen-reader status message.</li>
+<li>Light theme with automatic dark mode.</li>
+<li>Friendly messages for invalid length or no character type selected.</li>
+<li>No signup and no external requests.</li>
+</ul>
+</section>
+
+<section id="tips" aria-labelledby="tips-h">
+<h2 id="tips-h">Expert tips and common mistakes</h2>
+<h3>Never reuse a password</h3>
+<p>This is the mistake that causes the most damage. When one site leaks its database, attackers try the same email and password on banks, email and shopping sites. A unique password per account limits a breach to one account.</p>
+<h3>Don't "improve" a generated password to remember it</h3>
+<p>Swapping a few letters for something familiar, or tacking on your birth year, cuts the randomness you just paid for. If you can't remember it, that's normal. Store it in a password manager and let the manager remember it.</p>
+<h3>Don't use predictable patterns</h3>
+<p>Things like a word plus a year plus an exclamation mark ("Summer2026!") follow patterns attackers try first. Random characters have no pattern to guess.</p>
+<h3>Match the site's rules, then add length</h3>
+<p>Some sites cap length or ban certain symbols. Read the rules, untick what's not allowed here, and make up the difference with extra characters. Pasted a password and want to confirm its length? The <a href="https://wordcounter.globrik.com/">Word &amp; Character Counter</a> shows an exact count.</p>
+<h3>Turn on two-factor authentication</h3>
+<p>A strong password is the first layer. Where a site offers two-factor authentication, use it for email, banking and any account that can reset others.</p>
+<h3>Treat security answers like passwords</h3>
+<p>If a site asks security questions, true answers are easy for others to find. Use random text for those answers too, and store them with the password.</p>
+<h3>Be careful where the password lands</h3>
+<p>Your clipboard can hold the password until you copy something else. Paste it, then copy a harmless word to overwrite it. Avoid screenshots, chat messages and plain text files. Generate on a device you trust.</p>
+</section>
+
+<section id="privacy" aria-labelledby="privacy-h">
+<h2 id="privacy-h">Privacy and security</h2>
+<p>Passwords are generated in your browser and are never uploaded. The generator is plain JavaScript that calls <code>crypto.getRandomValues</code>, which MDN documents as the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues" rel="noopener">browser's cryptographically strong random source</a>. The page loads no external scripts, fonts or images, makes no network requests when you generate, and doesn't write passwords to cookies or local storage. Refreshing or closing the tab clears them.</p>
+<p>Some risks sit outside this page. Malware or a keylogger on your device can see what you type or copy. Browser extensions can read page contents. A clipboard manager may keep what you copy. The Download .txt button saves an unencrypted file, so delete it after you've stored the passwords properly. Standard hosting logs may record that the page was visited, but they never see the passwords created in your browser.</p>
+</section>
+
+<section id="compare" aria-labelledby="compare-h">
+<h2 id="compare-h">This password generator vs. alternatives</h2>
+<p>Each option has a place. If you already use LastPass or another password manager, its built-in generator is a good choice, because it can create and save the password in one step. This page is handy when you want a quick password without opening anything, you're on a device where your manager isn't installed, or you simply want to see the options and how the result is built.</p>
+<div class="tw"><table>
+<thead><tr><th>Factor</th><th>This browser tool</th><th>Password manager (such as LastPass)</th><th>Making one up yourself</th><th>Server-based generator sites</th></tr></thead>
+<tbody>
+<tr><td>Randomness</td><td>Secure random source</td><td>Secure random source, typically</td><td>Humans follow patterns</td><td>Varies by site</td></tr>
+<tr><td>Saves the password</td><td>No</td><td>Yes</td><td>Only in your memory</td><td>Varies</td></tr>
+<tr><td>Autofill and sync</td><td>No</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td>Setup</td><td>None</td><td>Account and app or extension</td><td>None</td><td>None</td></tr>
+<tr><td>Where it's generated</td><td>On your device</td><td>On your device, typically</td><td>In your head</td><td>Varies by site</td></tr>
+<tr><td>Cost</td><td>Free</td><td>Depends on the provider and plan</td><td>Free</td><td>Often free with ads</td></tr>
+</tbody></table></div>
+<p>The best routine combines them: generate a long random password, then keep it in a manager so you never have to remember or reuse it.</p>
+</section>
+
+<section id="trouble" aria-labelledby="trouble-h">
+<h2 id="trouble-h">Troubleshooting</h2>
+<h3>"Choose at least one character type" appears</h3>
+<p>All four checkboxes are off. Tick at least one type and the password will generate again.</p>
+<h3>A website rejects my password</h3>
+<p>The site probably bans certain symbols or sets a maximum length. Untick Symbols, shorten the length to the site's maximum, or both. Then generate again.</p>
+<h3>Copy doesn't work</h3>
+<p>Some browsers block clipboard access in certain settings. The tool tries a fallback. If it still fails, click inside the box, press Ctrl+A (Cmd+A on a Mac), and copy with the keyboard.</p>
+<h3>My length was changed</h3>
+<p>Lengths below 4 or above 128 are adjusted to the nearest allowed value, and a message tells you so.</p>
+<h3>The strength says Fair or Weak</h3>
+<p>Your password is too short or uses too few character types. Raise the length to 16 or more and turn on all four types.</p>
+<h3>I can't tell O from 0 or l from 1</h3>
+<p>Tick Easy to read and generate again. The new password avoids I, l, 1, O and 0.</p>
+<h3>I downloaded a file and want it gone</h3>
+<p>Delete the .txt file from your downloads folder and empty the trash or recycle bin. Better yet, save passwords in a password manager and skip the file.</p>
+<h3>I want a password I can say out loud</h3>
+<p>This tool makes random character strings, not word-based passphrases. Use a shorter length with look-alikes excluded, or a password manager that supports passphrases.</p>
+</section>
+
+<section id="glossary" aria-labelledby="glossary-h">
+<h2 id="glossary-h">Glossary</h2>
+<dl>
+<dt>Entropy</dt><dd>A measure of unpredictability, counted in bits. More bits means more possible passwords and more guesses for an attacker.</dd>
+<dt>Brute-force attack</dt><dd>Trying many possible passwords until one works. Longer, random passwords make this impractical.</dd>
+<dt>Credential stuffing</dt><dd>Using email and password pairs leaked from one site to try to log in elsewhere. Unique passwords stop it.</dd>
+<dt>CSPRNG</dt><dd>A cryptographically secure pseudo-random number generator, the kind of random source that's safe for security uses.</dd>
+<dt>Password manager</dt><dd>An app that creates, stores and fills in passwords so you only remember one master password.</dd>
+<dt>Two-factor authentication</dt><dd>A second proof of identity, such as a code from an app, required in addition to your password.</dd>
+<dt>Hash</dt><dd>A one-way fingerprint of data. Websites should store hashes of passwords, not the passwords themselves. You can experiment with the <a href="https://hashgenerator.globrik.com/">Hash Generator</a>.</dd>
+</dl>
+</section>
+
+<section id="faq" aria-labelledby="faq-h">
+<h2 id="faq-h">Frequently asked questions</h2>
+<details><summary>Is this password generator free?</summary><p>Yes. It's completely free, with no account, no trial and no limit on how many passwords you generate. There are no ads inside the tool and nothing to install. Open the page, choose your options, click Generate password and copy the result.</p></details>
+<details><summary>Are the passwords really random?</summary><p>Yes. Each character is chosen with crypto.getRandomValues, the browser's cryptographically secure random source, not Math.random. The code also discards out-of-range values to avoid modulo bias. That makes the output suitable for real accounts, though randomness quality still depends on your browser and device.</p></details>
+<details><summary>Does this site see or store my passwords?</summary><p>No. Passwords are generated on your device and shown only in the box on this page. The page doesn't send them anywhere or save them in cookies or local storage. Closing or refreshing the tab clears them. Your clipboard or browser may keep copies, so clear them on shared computers.</p></details>
+<details><summary>How long should my password be?</summary><p>For most accounts, 16 characters with letters, numbers and symbols is a solid default. Use 20 or more for important accounts such as email, banking and your password manager's master password. Longer is stronger, and length matters more than clever symbols. Also check each site's maximum length.</p></details>
+<details><summary>Do I need to include symbols?</summary><p>Not always. Symbols widen the pool and add strength per character, but extra length does the same job. If a site rejects certain symbols, turn symbols off and raise the length to 20 or more. Letters and numbers alone are fine when the password is long enough.</p></details>
+<details><summary>What does exclude ambiguous characters do?</summary><p>It removes characters that look alike: capital I, lowercase l, the digit 1, capital O and the digit 0. That helps if you'll type the password from a screen or paper. It shrinks the pool slightly, so add a character or two of length to make up for it.</p></details>
+<details><summary>Is this a replacement for LastPass or another password manager?</summary><p>No. This tool only generates passwords. It doesn't save, sync or autofill them. Password managers such as LastPass can generate and store passwords for you. A good routine is to create a password here or in your manager, then keep it in a manager instead of reusing it.</p></details>
+<details><summary>Can I use the same generated password on several sites?</summary><p>You shouldn't. If one site is breached, anyone holding that password can try it on your other accounts. Generate a fresh password for each account and keep them in a password manager. This tool makes that easy: click Generate password again whenever you need another one.</p></details>
+<details><summary>Does it work on my phone and offline?</summary><p>Yes to both, with one note. The layout is built for phones, with 44-pixel tap targets, and the generator needs no internet connection once the page has loaded. You do need to be online to open it the first time. The tool does not install itself as an offline app.</p></details>
+<details><summary>How strong is my password?</summary><p>The strength bar shows an estimate in bits of entropy, calculated from the password length and the size of the character set you chose. Eighty bits or more is rated very strong. It estimates randomness only. It can't know whether a website stores passwords safely.</p></details>
+</section>
+
+<section aria-labelledby="concl-h">
+<h2 id="concl-h">Generate a strong password now</h2>
+<p>A strong password takes a few seconds with the right tool. Use this free password generator to set a length, pick your characters and copy a random result you couldn't guess yourself. Make a different one for every account, and keep them in a password manager. Scroll up, click Generate password, and secure your next login. Then check the related tools below.</p>
+</section>
+
+<section aria-labelledby="rel-h">
+<h2 id="rel-h">Related tools</h2>
+<ul class="rel">
+<li><a href="https://hashgenerator.globrik.com/">Hash Generator<span>Create text hashes for checks and tests</span></a></li>
+<li><a href="https://qrcodegenerator.globrik.com/">QR Code Generator<span>Turn text and links into QR codes</span></a></li>
+<li><a href="https://caseconverter.globrik.com/">Case Converter<span>Switch text between upper and lower case</span></a></li>
+<li><a href="https://wordcounter.globrik.com/">Word &amp; Character Counter<span>Count characters, words and sentences</span></a></li>
+<li><a href="https://jsonformatter.globrik.com/">JSON Formatter<span>Format and validate JSON data</span></a></li>
+</ul>
+</section>
+</article>
+</main>
+<footer>
+<div class="w">
+<ul>
+<li><a href="https://sites.google.com/view/globriklegal/privacy-policy">Privacy Policy</a></li>
+<li><a href="https://sites.google.com/view/globriklegal/terms-of-use">Terms</a></li>
+<li><a href="https://sites.google.com/view/globriklegal/contact">Contact</a></li>
+<li><a href="https://sites.google.com/view/globriklegal/about">About</a></li>
+</ul>
+<p>Disclaimer: This tool creates random text. You're responsible for how you store and use the passwords it makes. LastPass and other product names belong to their owners, and Globrik isn't affiliated with them.</p>
+<p>Last updated: November 2026 &middot; &copy; 2026 Globrik</p>
+</div>
+</footer>
+<script>
+(function(){
+var st=document.getElementById('status');
+try{
+var $=function(i){return document.getElementById(i)};
+var out=$('out'),bar=$('bar'),strength=$('strength'),lenN=$('lenN'),len=$('len'),count=$('count'),amb=$('amb');
+var SETS={lower:'abcdefghijklmnopqrstuvwxyz',upper:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',num:'0123456789',sym:'!@#$%^&*()-_=+[]{}:;,.?'};
+var KEYS=['lower','upper','num','sym'];
+var AMB=/[Il1O0]/g;
+var cryptoOK=!!(window.crypto&&window.crypto.getRandomValues);
+
+function say(m,e){st.textContent=m;st.className=e?'err':'ok'}
+function rnd(n){
+var max=Math.floor(4294967296/n)*n,a=new Uint32Array(1);
+do{window.crypto.getRandomValues(a)}while(a[0]>=max);
+return a[0]%n;
+}
+function build(n,sets,pool){
+var o=[],i,j,t;
+sets.forEach(function(s){o.push(s.charAt(rnd(s.length)))});
+while(o.length<n)o.push(pool.charAt(rnd(pool.length)));
+for(i=o.length-1;i>0;i--){j=rnd(i+1);t=o[i];o[i]=o[j];o[j]=t}
+return o.join('');
+}
+function meter(bits){
+var lv=bits<40?0:bits<60?1:bits<80?2:3,names=['Weak','Fair','Strong','Very strong'];
+bar.style.width=Math.min(100,Math.round(bits/128*100))+'%';
+bar.style.background='var(--s'+lv+')';
+strength.textContent='Strength: '+names[lv]+' (about '+Math.round(bits)+' bits of entropy)';
+}
+function clearMeter(){bar.style.width='0';strength.textContent='Strength: not generated yet'}
+
+function generate(click){
+if(!cryptoOK){say('Your browser does not support secure random numbers (Web Crypto). Please use an up-to-date browser.',true);return}
+var n=parseInt(lenN.value,10),note='';
+if(isNaN(n)){say('Enter a length between 4 and 128.',true);return}
+if(n<4||n>128){n=Math.min(128,Math.max(4,n));lenN.value=n;len.value=n;note='Length adjusted to '+n+' (allowed range is 4 to 128). '}
+len.value=n;
+var sets=[];
+KEYS.forEach(function(k){
+if($('o-'+k).checked){var s=SETS[k];if(amb.checked)s=s.replace(AMB,'');if(s.length)sets.push(s)}
+});
+if(!sets.length){out.value='';clearMeter();say('Choose at least one character type.',true);return}
+var c=parseInt(count.value,10)||1,pool=sets.join(''),lines=[],i;
+for(i=0;i<c;i++)lines.push(build(n,sets,pool));
+out.value=lines.join('\n');
+out.rows=Math.max(2,Math.min(c,10));
+meter(n*Math.log2(pool.length));
+if(note)say(note+'New password'+(c>1?'s':'')+' generated.');
+else if(click)say('New password'+(c>1?'s':'')+' generated.');
+else say('');
+}
+
+$('gen').addEventListener('click',function(){generate(true)});
+len.addEventListener('input',function(){lenN.value=len.value;generate(false)});
+lenN.addEventListener('change',function(){generate(false)});
+lenN.addEventListener('input',function(){var v=parseInt(lenN.value,10);if(v>=4&&v<=128){len.value=v;generate(false)}});
+KEYS.forEach(function(k){$('o-'+k).addEventListener('change',function(){generate(false)})});
+amb.addEventListener('change',function(){generate(false)});
+count.addEventListener('change',function(){generate(false)});
+
+function fallbackCopy(){
+try{
+out.focus();out.select();
+var ok=document.execCommand('copy');
+say(ok?'Copied to clipboard.':'Your browser blocked copying. Select the text and copy it manually.',!ok);
+}catch(e){say('Your browser blocked copying. Select the text and copy it manually.',true)}
+}
+$('copy').addEventListener('click',function(){
+var v=out.value;
+if(!v){say('Generate a password first.',true);return}
+if(navigator.clipboard&&window.isSecureContext){
+navigator.clipboard.writeText(v).then(function(){say('Copied to clipboard.')},fallbackCopy);
+}else fallbackCopy();
+});
+$('dl').addEventListener('click',function(){
+try{
+var v=out.value;
+if(!v){say('Generate a password first.',true);return}
+var blob=new Blob([v+'\n'],{type:'text/plain;charset=utf-8'});
+var url=URL.createObjectURL(blob),a=document.createElement('a');
+a.href=url;a.download='passwords.txt';
+document.body.appendChild(a);a.click();document.body.removeChild(a);
+setTimeout(function(){URL.revokeObjectURL(url)},1000);
+say('Download started: passwords.txt. The file is not encrypted.');
+}catch(e){say('Download failed in this browser. Use Copy instead.',true)}
+});
+$('reset').addEventListener('click',function(){
+lenN.value=16;len.value=16;count.value='1';amb.checked=false;
+KEYS.forEach(function(k){$('o-'+k).checked=true});
+generate(false);say('Settings reset to defaults.');
+});
+generate(false);
+}catch(err){
+if(st){st.textContent='This tool could not start in your browser. Please try an up-to-date browser.';st.className='err'}
+}
+})();
+</script>
+</body>
+</html>
